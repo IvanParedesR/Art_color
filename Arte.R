@@ -28,7 +28,7 @@ p <- ggplot(BIE_, aes(x=as.factor(Periodo), y=PIB2013PM)) +
   coord_polar(start = -50)
 p
 
-# Set a number of 'empty bar' to add at the end of each group
+# Aqui vamos poniendo un numero de barras en blanco para separar
 empty_bar <- 4
 to_add <- data.frame( matrix(NA, empty_bar*nlevels(BIE_$z), ncol(BIE_)) )
 colnames(to_add) <- colnames(BIE_)
@@ -38,7 +38,7 @@ BIE_ <- BIE_  %>% arrange(z)
 #BIE_ $P <- seq(1, nrow(z))
 BIE_$t <- 1:192
 
-# Make the plot
+# Una nueva versión
 p <- ggplot(BIE_, aes(x=as.factor(t), y=PIB2013PM, fill=z)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
   geom_bar(stat="identity", alpha=0.5) +
   ylim(-10000000,24000000) +
