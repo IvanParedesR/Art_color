@@ -3,10 +3,11 @@ library(readxl)
 library(tidyverse)
 library(RColorBrewer)
 
-#Cargamos datos, se toma el PIB de la p·gina de Inegi de 1980 a la actualidad
+#https://jokergoo.github.io/circlize_book/book/
+#Cargamos datos, se toma el PIB de la p√°gina de Inegi de 1980 a la actualidad
 BIE_ <- read_excel("C:/Users/iparedes/Downloads/Graphs/BIE_BIE20200320185601.xls", range = "A4:G164")
 
-#PensÈ en convertir z en una fecha, al final es irrelevante pues lo use como factor.
+#Pens√© en convertir z en una fecha, al final es irrelevante pues lo use como factor.
 #z <- as.Date(BIE_BIE20200320185601$Periodo, "%Y%q")
 BIE_$z <- as.factor(BIE_$Grupo)
 
