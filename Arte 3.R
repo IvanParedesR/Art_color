@@ -1,3 +1,4 @@
+# Se instalan una serie de paquetes.
 if(!"remotes" %in% installed.packages()) {
   install.packages("remotes")
 }
@@ -32,7 +33,7 @@ library(nabor)
 
 remotes::install_cran(cran_pkgs)
 
-# We choose Tacubaya a little neighborhood of Mexico City
+# We choose Tacubaya a little neighborhood of Mexico City (el lugar donde nací)
 CDMX <- opq(bbox =  c(-99.2300, 19.391555, -99.1800, 19.40755)) %>% 
   add_osm_feature(key = 'highway') %>% 
   osmdata_sf() %>% 
