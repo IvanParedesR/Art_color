@@ -4,10 +4,15 @@ library(tidyverse)
 library(RColorBrewer)
 
 #https://jokergoo.github.io/circlize_book/book/
+
 #Cargamos datos, se toma el PIB de la página de Inegi de 1980 a la actualidad
-BIE_ <- read_excel("C:/Users/iparedes/Downloads/Graphs/BIE_BIE20200320185601.xls", range = "A4:G164")
+BIE_ <- read_excel("~/Art_color/BIE_BIE20200320185601.xls", range = "A4:F164")
+BIE_$Periodo <- as.Date(BIE_$Periodo)
 
 #Pensé en convertir z en una fecha, al final es irrelevante pues lo use como factor.
+filter(BIE_, Periodo >= "2000/01" & Periodo <= "2005/01")
+
+BIE_$z <- 1 
 #z <- as.Date(BIE_BIE20200320185601$Periodo, "%Y%q")
 BIE_$z <- as.factor(BIE_$Grupo)
 
