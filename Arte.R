@@ -32,15 +32,15 @@ p <- ggplot(BIE_, aes(x=as.factor(Periodo), y=PIB2013PM)) +
   coord_polar(start = -50)
 p
 
-BIE_$z<- ifelse((BIE_$Periodo >= "2018/04" & BIE_$Periodo <= "2019/04"), 7,+
-                  ifelse((BIE_$Periodo >= "2012/04" & BIE_$Periodo <= "2018/03"), 6,+
-                           ifelse((BIE_$Periodo >= "2006/04" & BIE_$Periodo <= "2012/03"), 5,+
-                                    ifelse((BIE_$Periodo >= "2000/04" & BIE_$Periodo <= "2006/03"), 4,+
-                                             ifelse((BIE_$Periodo >= "1994/04" & BIE_$Periodo <= "2000/03"), 3,+
-                                                      ifelse((BIE_$Periodo >= "1988/04" & BIE_$Periodo <= "1994/03"), 2,+
-                                                               ifelse((BIE_$Periodo >= "1982/04" & BIE_$Periodo <= "1988/03"), 1,+
-                                                                        ifelse((BIE_$Periodo >= "1980/04" & BIE_$Periodo <= "1982/03"), 0,+
-                                                                                 ifelse((BIE_$Periodo >= "1980/01" & BIE_$Periodo <= "1980/03"), 9, 8)))))))))
+BIE_$z<- ifelse((BIE_$Periodo >= "2018/04" & BIE_$Periodo <= "2019/04"), 9,+
+                  ifelse((BIE_$Periodo >= "2012/04" & BIE_$Periodo <= "2018/03"), 8,+
+                           ifelse((BIE_$Periodo >= "2006/04" & BIE_$Periodo <= "2012/03"), 7,+
+                                    ifelse((BIE_$Periodo >= "2000/04" & BIE_$Periodo <= "2006/03"), 6,+
+                                             ifelse((BIE_$Periodo >= "1994/04" & BIE_$Periodo <= "2000/03"), 5,+
+                                                      ifelse((BIE_$Periodo >= "1988/04" & BIE_$Periodo <= "1994/03"), 4,+
+                                                               ifelse((BIE_$Periodo >= "1982/04" & BIE_$Periodo <= "1988/03"), 3,+
+                                                                        ifelse((BIE_$Periodo >= "1980/04" & BIE_$Periodo <= "1982/03"), 2,+
+                                                                                 ifelse((BIE_$Periodo >= "1980/01" & BIE_$Periodo <= "1980/03"), 1, 0)))))))))
 
 BIE_$z <- as.factor(BIE_$z)
 
