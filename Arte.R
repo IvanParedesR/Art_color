@@ -53,7 +53,7 @@ BIE_ <- BIE_  %>%   arrange(z)
 BIE_ $P <- seq(1, nrow(BIE_))
 BIE_$t <- 1:196
 
-# Una nueva versión
+# Una nueva versión de la gráfica con colores distintos para cada sexenio
 p <- ggplot(BIE_, aes(x=as.factor(t), y=PIB2013PM, fill=z)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
   geom_bar(stat="identity", alpha=0.5) +
   ylim(-10000000,24000000) +
