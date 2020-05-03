@@ -7,31 +7,29 @@ library(RColorBrewer)
 
 #Cargamos datos, se toma el PIB de la página de Inegi de 1980 a la actualidad
 BIE_ <- read_excel("~/Art_color/BIE_BIE20200320185601.xls", range = "A4:F164")
-BIE_$Periodo <- as.Date(BIE_$Periodo)
 
-#Pensé en convertir z en una fecha, al final es irrelevante pues lo use como factor.
-filter(BIE_, Periodo >= "2000/01" & Periodo <= "2005/01")
+#BIE_$Periodo <- as.Date(BIE_$Periodo)
 
+#Generamos una variable llamada z.
 BIE_$z <- 1 
-#z <- as.Date(BIE_BIE20200320185601$Periodo, "%Y%q")
-BIE_$z <- as.factor(BIE_$Grupo)
 
 # Hacer la grafica
 p <- ggplot(BIE_, aes(x=as.factor(Periodo), y=PIB2013PM)) +
   # Aqui se agrega el color
-  geom_bar(stat="identity", fill=alpha("red", 0.9)) +
-  ylim(-10000000,24000000) +
+  geom_bar(stat="identity", fill=alpha("red", 0.9)) + #agregamos color rojo
+  ylim(-10000000,24000000) + #establecemos minimos y máximos
   theme_minimal() +
   theme(
     axis.text = element_blank(),
     axis.title = element_blank(),
     panel.grid = element_blank(),
-    plot.margin = unit(rep(-2,4), "cm")     # This remove unnecessary margin around plot
+    plot.margin = unit(rep(-2,4), "cm")   
   ) +
   # Se hacen coordenadas polares y no cartesianas
-  coord_polar(start = -50)
+  coord_polar(start = -58) 
 p
 
+# modificamos el data frame para separar los datos por sexenio
 BIE_$z<- ifelse((BIE_$Periodo >= "2018/04" & BIE_$Periodo <= "2019/04"), 9,+
                   ifelse((BIE_$Periodo >= "2012/04" & BIE_$Periodo <= "2018/03"), 8,+
                            ifelse((BIE_$Periodo >= "2006/04" & BIE_$Periodo <= "2012/03"), 7,+
@@ -42,6 +40,7 @@ BIE_$z<- ifelse((BIE_$Periodo >= "2018/04" & BIE_$Periodo <= "2019/04"), 9,+
                                                                         ifelse((BIE_$Periodo >= "1980/04" & BIE_$Periodo <= "1982/03"), 2,+
                                                                                  ifelse((BIE_$Periodo >= "1980/01" & BIE_$Periodo <= "1980/03"), 1, 0)))))))))
 
+# Guardamos el grupo como factor
 BIE_$z <- as.factor(BIE_$z)
 
 # Aqui vamos poniendo un numero de barras en blanco para separar
