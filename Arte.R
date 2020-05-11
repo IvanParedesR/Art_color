@@ -77,21 +77,19 @@ newdata <- newdata %>%
   pivot_longer(cols = c(`PIB2013AP`, `PIB2013AS`, `PIB2013AT`), names_to = "PIBxSectores", values_to = "PIB")
 
 newdata$PIBxSectores <- as.factor(newdata$PIBxSectores)
-p3
+
 p3 <- ggplot(newdata) +      
   
   # Add the stacked bar
-  geom_bar(aes(x=as.factor(z), y=PIB, fill=PIBxSectores), stat="identity", alpha=0.5) +
+  geom_bar(aes(x=as.factor(Periodo), y=PIB, fill=PIBxSectores), stat="identity", alpha=0.5) +
   scale_fill_viridis(discrete=TRUE) +
-  
-  # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
-  geom_segment(data=newdata, aes(x = end, y = 0, xend = start, yend = 0), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=newdata, aes(x = end, y = 50, xend = start, yend = 50), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=newdata, aes(x = end, y = 100, xend = start, yend = 100), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=newdata, aes(x = end, y = 150, xend = start, yend = 150), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=newdata, aes(x = end, y = 200, xend = start, yend = 200), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  
-  # Add  +
-  coord_polar()
-
+  coord_polar() +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  )
 p3
