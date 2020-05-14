@@ -93,3 +93,23 @@ p3 <- ggplot(newdata) +
     plot.margin = unit(rep(-1,4), "cm") 
   )
 p3
+
+library(readxl)
+ca57_2018 <- read_excel("ca57_2018.xlsx", 
+                        range = "A13:J629", col_names = FALSE)
+View(ca57_2018)
+
+library(ggridges)
+library(ggplot2)
+
+# Diamonds dataset is provided by R natively
+#head(diamonds)
+
+newdata$PIB <- as.double(newdata$PIB)
+# basic example
+ggplot(newdata, aes(x = PIB, y = z)) +
+  geom_density_ridges() +
+  theme_ridges() + 
+  theme(legend.position = "none")
+
+View(diamonds)
