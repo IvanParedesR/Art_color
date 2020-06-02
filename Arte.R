@@ -106,7 +106,7 @@ library(ggplot2)
 #head(diamonds)
 
 newdata$PIB <- as.double(newdata$PIB)
-# basic example
+# Ejemplo básico
 ggplot(newdata, aes(x = PIB, y = z)) +
   geom_density_ridges() +
   theme_ridges() + 
