@@ -1,11 +1,11 @@
-set.seed(345)
+set.seed(3)
 library(ggplot2)
 library(RColorBrewer)
-ngroup=30
+ngroup=100
 names=paste("G_",seq(1,ngroup),sep="")
 DAT=data.frame()
 
-for(i in seq(1:30)){
+for(i in seq(1:100)){
   data=data.frame( matrix(0, ngroup , 3))
   data[,1]=i
   data[,2]=sample(names, nrow(data))
