@@ -83,12 +83,12 @@ imagen<- ggplot(data = cdmx_center) + geom_sf() + theme(axis.title.x=element_bla
                                                axis.title.y=element_blank(), 
                                                axis.text.y=element_blank(), 
                                                axis.ticks.y=element_blank(),
-                                               panel.background = element_rect(fill = "blue"),
+                                               panel.background = element_rect(fill = NA),
                                                panel.grid.major = element_blank(), 
                                                panel.grid.minor = element_blank())
 
 imagen
-frink <- image_read("~/Art_color/Rplot02.png")
+frink <- image_read("~/Art_color/Rplot03.png")
 
 i <-image_crop(frink, "800x750+50")
 ia <-image_crop(i, "800x650-50")
@@ -100,8 +100,14 @@ ib
 ic <-image_crop(ib, "500x590-120")
 ic
 
+png(tf <- tempfile(fileext = ".png"), 1000, 1000)
+par(mar = rep(0,4), yaxs="i", xaxs="i")
+plot(0, type = "n", ylim = c(0,1), xlim=c(0,1), axes=F, xlab=NA, ylab=NA)
+plotrix::draw.circle(.5,0.5,.5, col="black")
+dev.off()
 
-img <- image_read("~/Art_color/ib.png")
+
+img <- image_read("~/Art_color/Rplot03.png")
 mask <- image_read(tf)
 mask <- image_scale(mask, as.character(image_info(img)$width))
 
