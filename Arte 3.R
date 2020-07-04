@@ -1,4 +1,5 @@
 # Se instalan una serie de paquetes.
+#Usamos remotes para instalar
 #if(!"remotes" %in% installed.packages()) {
 #  install.packages("remotes")
 #}
@@ -45,11 +46,13 @@ cdmx_center <- CDMX$osm_lines %>%
 
 cdmx_center
 
+#Con cuadriculas de fondo y marco
 ggplot(data = cdmx_center) + geom_sf() + theme_bw()
 
+#Sin marco, pero con números de ejes
 ggplot(data = cdmx_center) + geom_sf() + theme(panel.background = element_rect(fill = NA),panel.grid.major = element_blank(), panel.grid.minor = element_blank())
 
-
+#Sin marco, sin número de ejes
 ggplot(data = cdmx_center) + geom_sf() + theme(axis.title.x=element_blank(), 
                                                axis.text.x=element_blank(), 
                                                axis.ticks.x=element_blank(),
@@ -59,6 +62,68 @@ ggplot(data = cdmx_center) + geom_sf() + theme(axis.title.x=element_blank(),
                                                panel.background = element_rect(fill = NA),
                                                panel.grid.major = element_blank(), 
                                                panel.grid.minor = element_blank())
+
+
+
+bbox <- get_bbox (c (-0.13, 51.5, -0.11, 51.52))
+map <- osm_basemap (bbox = bbox, bg = "gray20")
+# Align volcano data to lat-lon range of bbox
+dv <- dim (volcano)
+x <- seq (bbox [1,1], bbox [1,2], length.out = dv [1])
+y <- seq (bbox [2,1], bbox [2,2], length.out = dv [2])
+dat <- data.frame (
+  x = rep (x, dv [2]),
+  y = rep (y, each = dv [1]),
+  z = as.numeric (volcano)
+)
+map <- add_osm_surface (map, obj = london$dat_BNR, dat = dat,
+                        cols = heat.colors (30))
+map <- add_axes (map)
+# Note colours of colourbar can be artibrarily set, and need not equal those
+# passed to 'add_osm_surface'
+map <- add_colourbar (map, zlims = range (volcano), cols = heat.colors(100),
+                      text_col = "black")
+print_osm_map (map)
+# Horizontal colourbar shifted away from margins:
+map <- osm_basemap (bbox = bbox, bg = "gray20")
+map <- add_osm_surface (map, obj = london$dat_BNR, dat = dat,
+                        cols = heat.colors (30))
+map <- add_colourbar (map, zlims = range (volcano), cols = heat.colors(100),
+                      barwidth = c(0.1,0.15), barlength = c(0.5, 0.9),
+                      vertical = FALSE)
+print_osm_map (map)
+
+
+bbox <- get_bbox (c (-0.13, 51.5, -0.11, 51.52))
+map <- osm_basemap (bbox = bbox, bg = "gray20")
+map <- add_osm_objects (map, london$dat_BNR, col = "gray40")
+map <- add_axes (map)
+print (map)
+
+View(london$dat_BNR)
+# Map items are added sequentially, so adding axes prior to objects will
+# produce a different result.
+map <- osm_basemap (bbox = bbox, bg = "gray20")
+map <- add_axes (map)
+map <- add_osm_objects (map, london$dat_BNR, col = "gray40")
+print_osm_map (map)
+
+
+
+CDMX <- opq(bbox =  c(-0.13, 51.5, -0.11, 51.52)) %>% 
+  add_osm_feature(key = 'highway') %>% 
+  osmdata_sf() %>% 
+  osm_poly2line()
+
+cdmx_center <- CDMX$osm_lines %>% 
+  select(highway)
+
+cdmx_center
+
+#Con cuadriculas de fondo y marco
+ggplot(data = cdmx_center) + geom_sf() + theme_bw()
+
+
 ###########
 
 # We choose Tacubaya a little neighborhood of Mexico City (el lugar donde nací)
@@ -86,6 +151,8 @@ imagen<- ggplot(data = cdmx_center) + geom_sf() + theme(axis.title.x=element_bla
                                                panel.background = element_rect(fill = NA),
                                                panel.grid.major = element_blank(), 
                                                panel.grid.minor = element_blank())
+
+
 
 imagen
 frink <- image_read("~/Art_color/Rplot04.png")
