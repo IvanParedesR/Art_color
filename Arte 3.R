@@ -37,7 +37,8 @@ library(magick)
 
 # We choose Tacubaya a little neighborhood of Mexico City (el lugar donde nací)
 CDMX <- opq(bbox =  c(-99.2000, 19.391555, -99.1800, 19.40755)) %>% 
-  add_osm_feature(key = 'highway') %>% 
+  add_osm_feature(key = 'highway') %>%
+  add_osm_feature(key = 'amenity') %>%
   osmdata_sf() %>% 
   osm_poly2line()
 
@@ -64,50 +65,24 @@ ggplot(data = cdmx_center) + geom_sf() + theme(axis.title.x=element_blank(),
                                                panel.grid.minor = element_blank())
 
 
-
-bbox <- get_bbox (c (-0.13, 51.5, -0.11, 51.52))
-map <- osm_basemap (bbox = bbox, bg = "gray20")
-# Align volcano data to lat-lon range of bbox
-dv <- dim (volcano)
-x <- seq (bbox [1,1], bbox [1,2], length.out = dv [1])
-y <- seq (bbox [2,1], bbox [2,2], length.out = dv [2])
-dat <- data.frame (
-  x = rep (x, dv [2]),
-  y = rep (y, each = dv [1]),
-  z = as.numeric (volcano)
-)
-map <- add_osm_surface (map, obj = london$dat_BNR, dat = dat,
-                        cols = heat.colors (30))
-map <- add_axes (map)
-# Note colours of colourbar can be artibrarily set, and need not equal those
-# passed to 'add_osm_surface'
-map <- add_colourbar (map, zlims = range (volcano), cols = heat.colors(100),
-                      text_col = "black")
-print_osm_map (map)
-# Horizontal colourbar shifted away from margins:
-map <- osm_basemap (bbox = bbox, bg = "gray20")
-map <- add_osm_surface (map, obj = london$dat_BNR, dat = dat,
-                        cols = heat.colors (30))
-map <- add_colourbar (map, zlims = range (volcano), cols = heat.colors(100),
-                      barwidth = c(0.1,0.15), barlength = c(0.5, 0.9),
-                      vertical = FALSE)
-print_osm_map (map)
-
-
-bbox <- get_bbox (c (-0.13, 51.5, -0.11, 51.52))
-map <- osm_basemap (bbox = bbox, bg = "gray20")
-map <- add_osm_objects (map, london$dat_BNR, col = "gray40")
-map <- add_axes (map)
-print (map)
-
-View(london$dat_BNR)
-# Map items are added sequentially, so adding axes prior to objects will
-# produce a different result.
-map <- osm_basemap (bbox = bbox, bg = "gray20")
-map <- add_axes (map)
-map <- add_osm_objects (map, london$dat_BNR, col = "gray40")
-print_osm_map (map)
-
+ggplot() +
+  geom_sf(data = cdmx_center,
+          inherit.aes = FALSE,
+          color = "#7fc0ff",
+          size = .4,
+          alpha = .8) +
+  geom_sf(data = small_streets$osm_lines,
+          inherit.aes = FALSE,
+          color = "#ffbe7f",
+          size = .2,
+          alpha = .6) +
+  coord_sf(xlim = c(-99.1800, 19.40755)), 
+           ylim = c(-99.2000, 19.391555),
+           expand = FALSE) +
+  theme_void() +
+  theme(
+    plot.background = element_rect(fill = "#282828")
+  )
 
 
 CDMX <- opq(bbox =  c(-0.13, 51.5, -0.11, 51.52)) %>% 
