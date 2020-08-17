@@ -59,3 +59,19 @@ circos.link("e", 0, "g", c(-1,1), col = "green", border = "black", lwd = 2, lty 
 #Finally we need to reset the graphic parameters and internal variables, so that it will not mess up your next plot.
 
 circos.clear()
+
+# Chapter 2 Circular layout
+# 2.1 Coordinate transformation
+### Duda
+
+circos.initialize(factors, xlim)
+circos.track(ylim)
+for(sector.index in all.sector.index) {
+  circos.points(x1, y1, sector.index)
+  circos.lines(x2, y2, sector.index)
+}
+
+circos.initialize(factors, xlim)
+circos.track(ylim)
+circos.trackPoints(factors, x, y)
+circos.trackLines(factors, x, y)
