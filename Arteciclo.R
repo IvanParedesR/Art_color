@@ -75,3 +75,10 @@ circos.initialize(factors, xlim)
 circos.track(ylim)
 circos.trackPoints(factors, x, y)
 circos.trackLines(factors, x, y)
+
+circos.initialize(factors, xlim)
+circos.track(factors, all_x, all_y, ylim,
+             panel.fun = function(x, y) {
+               circos.points(x, y)
+               circos.lines(x, y)
+             })
