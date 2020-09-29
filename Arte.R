@@ -101,15 +101,3 @@ View(ca57_2018)
 
 library(ggridges)
 library(ggplot2)
-
-# Diamonds dataset is provided by R natively
-#head(diamonds)
-
-newdata$PIB <- as.double(newdata$PIB)
-# Ejemplo básico
-ggplot(newdata, aes(x = PIB, y = z)) +
-  geom_density_ridges() +
-  theme_ridges() + 
-  theme(legend.position = "none")
-
-View(diamonds)
