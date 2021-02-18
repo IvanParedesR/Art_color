@@ -69,7 +69,7 @@ p <- ggplot(BIE_, aes(x=as.factor(t), y=PIB2013PM, fill=z)) +       # Note that 
 p2 <- p + scale_fill_brewer(palette="YlGnBu")
 p2
 
-### pendiente
+### Pendiente
 BIE_2 <- c("Periodo", "PIB2013AP", "PIB2013AS", "PIB2013AT", "z")
 newdata <- BIE_[BIE_2]
 
